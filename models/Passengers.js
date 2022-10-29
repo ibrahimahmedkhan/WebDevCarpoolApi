@@ -37,6 +37,23 @@ const PassengersSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        favorites: {
+            type: Array,
+            items: {
+                type: Object,
+                properties: {
+                    coordinates: {
+                        type: String,
+                        required: true,
+                    },
+                    name: {
+                        type: String, 
+                        required: true, 
+                    },
+                },
+            },
+            required: true,
+        },
         isDelete: {
             type: Boolean,
             default: false,
