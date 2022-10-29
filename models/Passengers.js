@@ -32,7 +32,16 @@ const PassengersSchema = new mongoose.Schema(
             type: Number,
             minimum: 0,
             maximum: 5,
-        }
+        },
+        profilePictureLink: {
+            type: String,
+            required: true,
+        },
+        isDelete: {
+            type: Boolean,
+            default: false,
+            required: true,
+        },
     },
     {
         timestamps: true,
