@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const User = require("../models/Users")
+const User = require("../models/Users");
+const Passenger = require("../models/Passengers");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
@@ -45,5 +46,28 @@ router.post("/user/login", async (req, res) => {
     }
 });
 
+
+
+//Passenger Register
+router.post("/Passenger/register", async (req, res) =>{
+    
+    const newPassenger = new Passenger({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
+        phone: req.body.phone,
+        gender: req.body.gender,
+        profilePictureLink: req.body.profilePictureLink,
+        favorites: [],
+    });
+
+    try {
+        const savedPassenger = await newPassenger.save();
+        res.status(200).json("Successfully created new passenger.");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;
