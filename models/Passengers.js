@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const PassengersSchema = new mongoose.Schema(
     {
-        firstname: {
+        firstName: {
             type: String,
             required: true,
         },
-        lastname: {
+        lastName: {
             type: String,
             required: true,
         },
@@ -52,6 +52,7 @@ const PassengersSchema = new mongoose.Schema(
                     },
                 },
             },
+            default : [],
             required: true,
         },
         isDelete: {
