@@ -55,3 +55,5 @@ router.delete("/", verifyUserTokenAndID, async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+module.exports = router;
