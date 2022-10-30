@@ -15,6 +15,11 @@ const AdminUser = new mongoose.Schema(
             type: String,
             required: true,
             enum: ["SU","CS"],
+        },
+        isDelete: {
+            type: Boolean,
+            required: true,
+            default: false,
         }
     },
     {
