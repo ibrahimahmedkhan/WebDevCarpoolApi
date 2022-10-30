@@ -18,7 +18,7 @@ router.get("/", verifyUserTokenAndID, async (req, res) => {
 });
 
 // update passengers
-router.put("/", verifyUserTokenAndID, async (req, res) => {
+router.patch("/", verifyUserTokenAndID, async (req, res) => {
     try{
         if (req.body.password) {
             req.body.password = CryptoJS.AES.encrypt(
