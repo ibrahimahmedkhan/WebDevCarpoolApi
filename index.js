@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
+const passengersRoute = require("./routes/passengers");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(cors());
 
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
+app.use("/api/passengers", passengersRoute);
 
 app.listen(process.env.PORT_NO, ()=>{
     console.log("backend asdasd server is running at: ", process.env.PORT_NO);
