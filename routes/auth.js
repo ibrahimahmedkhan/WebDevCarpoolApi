@@ -49,7 +49,7 @@ router.post("/user/login", async (req, res) => {
 
 
 //Passenger Register
-router.post("/Passenger/register", async (req, res) =>{
+router.post("/passenger/register", async (req, res) =>{
     
     const newPassenger = new Passenger({
         firstname: req.body.firstname,
@@ -66,6 +66,33 @@ router.post("/Passenger/register", async (req, res) =>{
         const savedPassenger = await newPassenger.save();
         res.status(200).json("Successfully created new passenger.");
     } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
+//PassengerLogin
+router.post("/passenger/login", async (req, res) => {
+    try {
+        const passenger = await Passenger.findOne({email: req.body.email}); 
+        if (!passenger) {
+            res.status(404).json("Passenger Not Found");
+        } else {
+            const hashedPass = CryptoJS.AES.decrypt(passenger.password, process.env.PASS_SEC);
+            const originalPass = hashedPass.toString(CryptoJS.enc.Utf8);
+            if (originalPass != req.body.password) {
+                res.status(401).json("Wrong Credentials");
+            } else {
+                
+                const accessToken = jwt.sign({
+                    id: passenger._id,
+                }, process.env.JWT_KEY, {expiresIn:"3d"});
+
+                res.status(200).json(accessToken);
+            } 
+        }
+    }catch(err){
+        console.log(err);
         res.status(500).json(err);
     }
 });
