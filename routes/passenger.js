@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Passengers = require("../models/Passengers");
+const Passenger = require("../models/Passenger");
 
 const {
     verifyUserTokenAndID,
@@ -10,7 +10,7 @@ const {
 router.get("/", verifyUserTokenAndID, async (req, res) => {
     try {
         const query = req.query;
-        const passengers = await Passengers.find({$and:[query]});
+        const passengers = await Passenger.find({$and:[query]});
         res.status(200).json(passengers);
     } catch (err) {
         res.status(404).json("No passengers found with such query");
@@ -27,7 +27,7 @@ router.put("/", verifyUserTokenAndID, async (req, res) => {
             ).toString();
         } 
 
-        const updatedPassenger = await Passengers.findByIdAndUpdate(
+        const updatedPassenger = await Passenger.findByIdAndUpdate(
             req.params.id,
             {
               $set: req.body,
@@ -43,7 +43,7 @@ router.put("/", verifyUserTokenAndID, async (req, res) => {
 //delete passenger
 router.delete("/", verifyUserTokenAndID, async (req, res) => {
     try {
-        const deletedPassenger = await Passengers.findByIdAndUpdate(
+        const deletedPassenger = await Passenger.findByIdAndUpdate(
             req.params.id,
             {
                 isDelete: true,

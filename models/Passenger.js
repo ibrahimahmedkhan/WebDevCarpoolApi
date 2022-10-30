@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PassengersSchema = new mongoose.Schema(
+const PassengerSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
@@ -66,4 +66,4 @@ const PassengersSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("Passengers", PassengersSchema);
+module.exports = mongoose.model("Passenger", PassengerSchema);
