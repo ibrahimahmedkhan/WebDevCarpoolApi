@@ -22,7 +22,7 @@ const VehicleSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        Ac: {
+        ac: {
             type: Boolean,
             required: true,
         },
