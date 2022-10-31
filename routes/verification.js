@@ -1,9 +1,7 @@
 const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) => {
-    console.log(req.headers);
     const authHeader = req.headers.authorization;
     if (authHeader) {
-        console.log(req.headers);
         const token = authHeader.split(" ")[1];
         jwt.verify(token, process.env.JWT_KEY, (err, user) => {
             if (err) {
@@ -20,9 +18,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyUserTokenAndID = (req, res, next) => {
     verifyToken (req, res, () => {
-        console.log(req.user);
-        console.log(req.query);
-        if (req.user.id === req.query.id) {
+        if (req.user.id === req.params.id) {
             next();
         } else {
             res.status(403).json("You do not have authentication to do that.")

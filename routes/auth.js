@@ -75,7 +75,10 @@ router.post("/passenger/register", async (req, res) =>{
 //PassengerLogin
 router.post("/passenger/login", async (req, res) => {
     try {
-        const passenger = await Passenger.findOne({email: req.body.email}); 
+        const passenger = await Passenger.findOne({email: req.body.email});
+        if (passenger.isDelete === true){
+            res.status(404).json("Passenger might be deleted");
+        } 
         if (!passenger) {
             res.status(404).json("Passenger Not Found");
         } else {

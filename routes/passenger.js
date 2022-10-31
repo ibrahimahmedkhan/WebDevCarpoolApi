@@ -1,13 +1,14 @@
 const router = require("express").Router();
 const Passenger = require("../models/Passenger");
-
+const CryptoJS = require("crypto-js")
 const {
+    verifyToken,
     verifyUserTokenAndID,
 } = require("./verification");
 
 
 // get passengers
-router.get("/", verifyUserTokenAndID, async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
     try {
         const query = req.query;
         const passengers = await Passenger.find({$and:[query]});
@@ -18,7 +19,7 @@ router.get("/", verifyUserTokenAndID, async (req, res) => {
 });
 
 // update passengers
-router.patch("/", verifyUserTokenAndID, async (req, res) => {
+router.patch("/:id", verifyUserTokenAndID, async (req, res) => {
     try{
         if (req.body.password) {
             req.body.password = CryptoJS.AES.encrypt(
@@ -26,7 +27,6 @@ router.patch("/", verifyUserTokenAndID, async (req, res) => {
               process.env.PASS_SEC
             ).toString();
         } 
-
         const updatedPassenger = await Passenger.findByIdAndUpdate(
             req.params.id,
             {
@@ -36,12 +36,13 @@ router.patch("/", verifyUserTokenAndID, async (req, res) => {
         );
         res.status(200).json(updatedPassenger);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
 
 //delete passenger
-router.delete("/", verifyUserTokenAndID, async (req, res) => {
+router.delete("/:id", verifyUserTokenAndID, async (req, res) => {
     try {
         const deletedPassenger = await Passenger.findByIdAndUpdate(
             req.params.id,
