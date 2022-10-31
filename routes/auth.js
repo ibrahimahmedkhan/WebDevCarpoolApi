@@ -53,14 +53,13 @@ router.post("/user/login", async (req, res) => {
 router.post("/passenger/register", async (req, res) =>{
     
     const newPassenger = new Passenger({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
         phone: req.body.phone,
         gender: req.body.gender,
         profilePictureLink: req.body.profilePictureLink,
-        favorites: [],
     });
 
     try {
@@ -68,6 +67,7 @@ router.post("/passenger/register", async (req, res) =>{
         res.status(200).json("Successfully created new passenger.");
     } catch (err) {
         res.status(500).json(err);
+
     }
 });
 
@@ -116,10 +116,10 @@ router.post("/admin/register", async (req, res) =>{
     }
 });
 
-//PassengerLogin
+//admin
 router.post("/admin/login", async (req, res) => {
     try {
-        const admin = await AdminUser.findOne({email: req.body.email}); 
+        const admin = await AdminUser.findOne({username: req.body.username}); 
         if (!admin) {
             res.status(404).json("Admin Not Found");
         } else {
