@@ -33,6 +33,8 @@ const PassengerSchema = new mongoose.Schema(
             type: Number,
             minimum: 0,
             maximum: 5,
+            required: true,
+            default: 5,
         },
         profilePictureLink: {
             type: String,

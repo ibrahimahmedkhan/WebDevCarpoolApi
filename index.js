@@ -32,6 +32,3 @@ app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/passenger", passengerRoute);
 
-app.listen(process.env.PORT_NO, ()=>{
-    console.log("backend asdasd server is running at: ", process.env.PORT_NO);
-});
