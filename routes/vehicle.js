@@ -41,7 +41,7 @@ router.get("/", verifyToken, async (req, res) => {
 })
 
 //update vehicles
-router.patch("/", verifyToken, async (req, res) => {
+router.patch("/:id", verifyToken, async (req, res) => {
     try{
         const updatedVehicle = await Vehicle.findByIdAndUpdate(
             req.params.id,
@@ -57,7 +57,7 @@ router.patch("/", verifyToken, async (req, res) => {
 });
 
 //delete vehicle
-router.delete("/", verifyToken, async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
     try {
         const deletedVehicle = await Vehicle.findByIdAndUpdate(
             req.params.id,
