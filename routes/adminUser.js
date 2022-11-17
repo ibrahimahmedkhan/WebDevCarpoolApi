@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const AdminUser = require("../models/AdminUser");
+const CryptoJS = require("crypto-js");
+const jwt = require("jsonwebtoken");
+
 const {
     verifyToken,
 } = require("./verification");
@@ -17,8 +20,27 @@ router.get("/", verifyToken, async (req, res) => {
     }
 });
 
+
+//create
+router.post("/", async (req, res) =>{
+    
+    const newUser = new AdminUser({
+        username: req.body.username,
+        password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
+        role: req.body.role,
+    });
+
+    try {
+        const savedUser = await newUser.save();
+        res.status(200).json("Success");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
 // update admin
-router.patch("/", verifyToken, async (req, res) => {
+router.patch("/:id", verifyToken, async (req, res) => {
     try{
         if (req.body.password) {
             req.body.password = CryptoJS.AES.encrypt(
@@ -41,7 +63,7 @@ router.patch("/", verifyToken, async (req, res) => {
 });
 
 //delete admin
-router.delete("/", verifyToken, async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
     try {
         const deletedAdmin = await AdminUser.findByIdAndUpdate(
             req.params.id,
