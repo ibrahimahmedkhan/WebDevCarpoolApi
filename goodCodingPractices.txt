@@ -1,0 +1,5 @@
+https://stackoverflow.blog/2020/03/02%20/best-practices-for-rest-api-design/
+https://www.akana.com/blog/create-api
+https://www.partech.nl/nl/publicaties/2020/07/9-trending-best-practices-for-rest-api-development
+https://mojitocoder.medium.com/how-to-add-code-linting-for-a-node-js-project-b210d8759cd5
+https://www.linkedin.com/pulse/10-must-have-vs-code-extension-nodejs-developer-chandan-thakur/?trk=pulse-article_more-articles_related-content-card

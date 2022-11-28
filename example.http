@@ -1,0 +1,19 @@
+GET http://localhost:5000/api/driver?riderID=18
+
+###
+
+POST http://localhost:5000/api/driver
+content-type: application/json
+
+{
+    "riderID": "183",
+    "firstName": "ibrahim",
+    "lastName": "ahmed",
+    "email": "ibrahijasdasnkdasm@gmail.com",
+    "phoneNumber": "093091212",
+    "password": "asdkkjjkjas",
+    "gender": "male",
+    "rating": "2",
+    "profilePicture": "mkjjasms",
+    "licenseNumber": "120989129"
+}
