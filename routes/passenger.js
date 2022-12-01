@@ -12,9 +12,13 @@ router.get("/", verifyToken, async (req, res) => {
     try {
         const query = req.query;
         const passengers = await Passenger.find({$and:[query]});
-        res.status(200).json(passengers);
+        if (passengers.length === 0) {
+            res.status(404).json("No passengers found with such query");
+        } else {
+            res.status(200).json(passengers);
+        }
     } catch (err) {
-        res.status(404).json("No passengers found with such query");
+        res.status(500).json(err);
     }
 });
 
@@ -51,7 +55,7 @@ router.delete("/:id", verifyUserTokenAndID, async (req, res) => {
             },
             { new: true } 
         );
-        res.status(200).json("Passenger is succesfully deleted");
+        res.status(200).json("Passenger is successfully deleted");
     } catch (err) {
         res.status(500).json(err);
     }

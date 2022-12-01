@@ -24,7 +24,7 @@ const DriverSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        //TODO: might make gender a bool instead of String
+
         gender: {
             type: String,
             enum: ["M","F"],
@@ -37,7 +37,7 @@ const DriverSchema = new mongoose.Schema(
             required: true,
             default: 5,
         },
-        //need to figure out how to add image file to this
+
         profilePictureLink: {
             type: String,
             required: true,
