@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const DriverSchema = new mongoose.Schema(
     {
-        riderID: {
-            type: Number,
-            required: true,
-        },
         firstName: {
             type: String,
             required: true,
@@ -19,8 +15,8 @@ const DriverSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
-        phoneNumber: {
-            type: Number,
+        phone: {
+            type: String,
             required: true,
             unique: true,
         },
@@ -31,23 +27,32 @@ const DriverSchema = new mongoose.Schema(
         //TODO: might make gender a bool instead of String
         gender: {
             type: String,
+            enum: ["M","F"],
             required: true,
         },
         rating: {
             type: Number,
+            minimum: 0,
+            maximum: 5,
             required: true,
+            default: 5,
         },
         //need to figure out how to add image file to this
-        profilePicture: {
+        profilePictureLink: {
             type: String,
             required: true,
             unique: true,
         },
         licenseNumber: {
-            type: Number,
+            type: String,
             required: true,
             unique: true,
-        }
+        },
+        isDelete: {
+            type: Boolean,
+            default: false,
+            required: true,
+        },
     },
     {
         timestamps: true,
