@@ -32,7 +32,7 @@ router.post("/", async (req, res) =>{
 
     try {
         const savedUser = await newUser.save();
-        res.status(200).json("Success");
+        res.status(200).json(savedUser);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -72,7 +72,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
             },
             { new: true } 
         );
-        res.status(200).json("Admin is succesfully deleted");
+        res.status(200).json(deletedAdmin);
     } catch (err) {
         res.status(500).json(err);
     }

@@ -10,6 +10,7 @@ const adminRoute = require('./routes/adminUser');
 const driverRoute = require('./routes/driver');
 const rideRoute = require('./routes/ride');
 const vehicleRoute = require('./routes/vehicle');
+const ridePassengerRoute = require('./routes/ridePassenger'); 
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/api/admin', adminRoute);
 app.use('/api/driver', driverRoute);
 app.use('/api/ride', rideRoute);
 app.use('/api/vehicle', vehicleRoute);
+app.use('/api/ridePassenger', ridePassengerRoute);
 
 app.listen(process.env.PORT || process.env.PORT_NO, () => {
   console.log('backend asdasd server is running at: ', process.env.PORT_NO);
