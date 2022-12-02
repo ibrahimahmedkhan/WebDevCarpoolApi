@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI)
 // check api
 app.get('/', (req, res) => {
   console.log('test is successfull');
-  res.send('Connected');
+  res.send('Connected!');
 });
 
 app.use(express.json());
