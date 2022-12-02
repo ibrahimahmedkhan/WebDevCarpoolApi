@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const VehicleSchema = new mongoose.Schema(
     {
-        riderID: {
+        driverID: {
             type: String, 
             required: true,
         },
@@ -12,7 +12,7 @@ const VehicleSchema = new mongoose.Schema(
         },
         make: {
             type: String, 
-            requried: true,
+            required: true,
         },
         model: {
             type: String,

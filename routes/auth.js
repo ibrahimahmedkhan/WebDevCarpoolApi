@@ -2,8 +2,10 @@ const router = require("express").Router();
 const User = require("../models/Users");
 const Passenger = require("../models/Passenger");
 const AdminUser = require("../models/AdminUser");
+const Driver = require("../models/Driver")
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const e = require("express");
 
 router.post("/user/register", async (req, res) =>{
     
@@ -78,22 +80,23 @@ router.post("/passenger/login", async (req, res) => {
         const passenger = await Passenger.findOne({email: req.body.email});
         if (passenger.isDelete === true){
             res.status(404).json("Passenger might be deleted");
-        } 
-        if (!passenger) {
-            res.status(404).json("Passenger Not Found");
         } else {
-            const hashedPass = CryptoJS.AES.decrypt(passenger.password, process.env.PASS_SEC);
-            const originalPass = hashedPass.toString(CryptoJS.enc.Utf8);
-            if (originalPass != req.body.password) {
-                res.status(401).json("Wrong Credentials");
+            if (!passenger) {
+                res.status(404).json("Passenger Not Found");
             } else {
-                
-                const accessToken = jwt.sign({
-                    id: passenger._id,
-                }, process.env.JWT_KEY, {expiresIn:"3d"});
+                const hashedPass = CryptoJS.AES.decrypt(passenger.password, process.env.PASS_SEC);
+                const originalPass = hashedPass.toString(CryptoJS.enc.Utf8);
+                if (originalPass != req.body.password) {
+                    res.status(401).json("Wrong Credentials");
+                } else {
+                    
+                    const accessToken = jwt.sign({
+                        id: passenger._id,
+                    }, process.env.JWT_KEY, {expiresIn:"3d"});
 
-                res.status(200).json(accessToken);
-            } 
+                    res.status(200).json(accessToken);
+                } 
+            }
         }
     }catch(err){
         console.log(err);
@@ -144,5 +147,62 @@ router.post("/admin/login", async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+
+
+//Driver Register
+router.post("/driver/register", async (req, res) =>{
+    
+    const newDriver = new Driver({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString(),
+        phone: req.body.phone,
+        gender: req.body.gender,
+        profilePictureLink: req.body.profilePictureLink,
+        licenseNumber: req.body.licenseNumber,
+    });
+
+    try {
+        const savedDriver = await newDriver.save();
+        res.status(200).json("Successfully created new Driver.");
+    } catch (err) {
+        res.status(500).json(err);
+
+    }
+});
+
+
+//Driver Login
+router.post("/driver/login", async (req, res) => {
+    try {
+        const driver = await Driver.findOne({email: req.body.email});
+        if (driver.isDelete === true){
+            res.status(404).json("Driver might be deleted");
+        } else {
+            if (!driver) {
+                res.status(404).json("Driver Not Found");
+            } else {
+                const hashedPass = CryptoJS.AES.decrypt(driver.password, process.env.PASS_SEC);
+                const originalPass = hashedPass.toString(CryptoJS.enc.Utf8);
+                if (originalPass != req.body.password) {
+                    res.status(401).json("Wrong Credentials");
+                } else {
+                    
+                    const accessToken = jwt.sign({
+                        id: driver._id,
+                    }, process.env.JWT_KEY, {expiresIn:"3d"});
+
+                    res.status(200).json(accessToken);
+                } 
+            }
+        }
+    }catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 
 module.exports = router;

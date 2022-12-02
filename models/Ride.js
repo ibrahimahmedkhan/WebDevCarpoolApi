@@ -1,29 +1,23 @@
 const mongoose = require("mongoose");
 
-const RideScehema = new mongoose.Schema(
+const RideSchema = new mongoose.Schema(
     {
-        rideID: {
-            type: Number,
+        //need to check since this is foreign key
+        driverID: {
+            type: String,
             required: true,
         },
         //need to check since this is foreign key
-        riderId: {
-            type: Number,
-            required: true,
-            unique: true
-        },
-        //need to check since this is foreign key
-        carID : {
-            type: Number,
+        vehicleID : {
+            type: String,
             required : true,
-            unique: true
         },
         startingCoordinates: {
             type: String,
             required: true,
         },
         endingCoordinates: {
-            type: Number,
+            type: String,
             required: true,
         },
         totalFare: {
@@ -42,11 +36,16 @@ const RideScehema = new mongoose.Schema(
         dateTime: {
             type: String,
             required: true,
-        }
+        },
+        isDelete: {
+            type: Boolean,
+            default: false,
+            required: true,
+        },
     },
     {
         timestamps: true,
     }
 );
 
-module.exports = mongoose.model("Ride", RideScehema);
+module.exports = mongoose.model("Ride", RideSchema);
