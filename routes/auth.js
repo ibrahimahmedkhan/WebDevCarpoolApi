@@ -66,7 +66,7 @@ router.post("/passenger/register", async (req, res) =>{
 
     try {
         const savedPassenger = await newPassenger.save();
-        res.status(200).json("Successfully created new passenger.");
+        res.status(200).json(savedPassenger);
     } catch (err) {
         res.status(500).json(err);
 
@@ -94,7 +94,7 @@ router.post("/passenger/login", async (req, res) => {
                         id: passenger._id,
                     }, process.env.JWT_KEY, {expiresIn:"3d"});
 
-                    res.status(200).json(accessToken);
+                    res.status(200).json({accessToken, passenger});
                 } 
             }
         }
@@ -116,7 +116,7 @@ router.post("/admin/register", async (req, res) =>{
 
     try {
         const savedAdmin = await newAdmin.save();
-        res.status(200).json("Successfully created new admin.");
+        res.status(200).json(savedAdmin);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -139,7 +139,7 @@ router.post("/admin/login", async (req, res) => {
                     id: admin._id,
                 }, process.env.JWT_KEY, {expiresIn:"3d"});
 
-                res.status(200).json(accessToken);
+                res.status(200).json({accessToken, admin});
             } 
         }
     }catch(err){
@@ -166,7 +166,7 @@ router.post("/driver/register", async (req, res) =>{
 
     try {
         const savedDriver = await newDriver.save();
-        res.status(200).json("Successfully created new Driver.");
+        res.status(200).json(savedDriver);
     } catch (err) {
         res.status(500).json(err);
 
@@ -194,7 +194,7 @@ router.post("/driver/login", async (req, res) => {
                         id: driver._id,
                     }, process.env.JWT_KEY, {expiresIn:"3d"});
 
-                    res.status(200).json(accessToken);
+                    res.status(200).json({accessToken, driver});
                 } 
             }
         }
