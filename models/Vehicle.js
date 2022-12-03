@@ -42,6 +42,7 @@ const VehicleSchema = new mongoose.Schema(
         plateNumber: {
             type: String,
             required: true,
+            unique: true,
         },
         isDelete: {
             type: Boolean,
