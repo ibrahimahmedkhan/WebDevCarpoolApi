@@ -13,13 +13,49 @@ const RideSchema = new mongoose.Schema(
             required : true,
         },
         startingCoordinates: {
-            type: String,
+            type: Object,
+            properties: {
+                lat: {
+                    type: String,
+                    required: true,
+                },
+                long: {
+                    type: String,
+                    required: true,
+                },
+            },
             required: true,
         },
         endingCoordinates: {
-            type: String,
+            type: Object,
+            properties: {
+                lat: {
+                    type: String,
+                    required: true,
+                },
+                long: {
+                    type: String,
+                    required: true,
+                },
+            },
             required: true,
         },
+        waypoints: [
+            {
+                type: Object,
+                properties: {
+                    lat: {
+                        type: String,
+                        required: true,
+                    },
+                    long: {
+                        type: String,
+                        required: true,
+                    },
+                },
+                required: true,
+            }
+        ],
         totalFare: {
             type: Number,
             required: true,

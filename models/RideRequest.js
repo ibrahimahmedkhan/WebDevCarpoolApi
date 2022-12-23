@@ -11,12 +11,54 @@ const RideRequestSchema = new mongoose.Schema(
             required: true,
         },
         startingCoordinates: {
-            type: String, 
+            type: Object,
+            properties: {
+                lat: {
+                    type: String,
+                    required: true,
+                },
+                long: {
+                    type: String,
+                    required: true,
+                },
+            },
             required: true,
         },
         endingCoordinates: {
-            type: String,
+            type: Object,
+            properties: {
+                lat: {
+                    type: String,
+                    required: true,
+                },
+                long: {
+                    type: String,
+                    required: true,
+                },
+            },
             required: true,
+        },
+        waypoints: [
+            {
+                type: Object,
+                properties: {
+                    lat: {
+                        type: String,
+                        required: true,
+                    },
+                    long: {
+                        type: String,
+                        required: true,
+                    },
+                },
+                required: true,
+            }
+        ],
+        status: {
+            type: String,
+            enum: ["Pending", "Denied"],
+            default: "Pending",
+            required: true
         },
         isDelete: {
             type: Boolean,
@@ -28,5 +70,6 @@ const RideRequestSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
+
 
 module.exports = mongoose.model("RideRequest", RideRequestSchema);
