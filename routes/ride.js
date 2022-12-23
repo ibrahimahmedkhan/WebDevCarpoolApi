@@ -14,6 +14,7 @@ router.post("/", verifyToken, async (req, res) => {
             vehicleID: req.body.vehicleID,
             startingCoordinates: req.body.startingCoordinates,
             endingCoordinates: req.body.endingCoordinates,
+            waypoints: req.body.waypoints,
             totalFare: req.body.totalFare,
             availableSeats: req.body.availableSeats,
             isFemaleOnly: req.body.isFemaleOnly,

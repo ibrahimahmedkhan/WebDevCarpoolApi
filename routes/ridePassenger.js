@@ -14,6 +14,7 @@ router.post("/", verifyToken, async (req, res) => {
             passengerID: req.body.passengerID,
             startingCoordinates: req.body.startingCoordinates,
             endingCoordinates: req.body.endingCoordinates,
+            waypoints: req.body.waypoints,
             rideFare: req.body.rideFare,
         });
         const savedRidePassenger = await newRidePassenger.save();
